@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/controllers/quiz_controller.dart';
 import 'package:quiz_app/models/quiz_question.dart';
-
 import 'feedback_screen.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -33,13 +33,16 @@ class _QuizScreenState extends State<QuizScreen> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            content: Row(
-              children: const [
-                CircularProgressIndicator(),
-                SizedBox(width: 20),
-                Text('Generating Quiz...'),
-              ],
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Dialog(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset('assets/lotties/loading.json'),
+                  const Text('Generating Quiz...'),
+                ],
+              ),
             ),
           );
         },
@@ -150,35 +153,44 @@ class _QuizScreenState extends State<QuizScreen> {
               const Gap(20),
               if (_questions != null && _questions!.isNotEmpty)
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${_currentQuestionIndex + 1}. ${_questions![_currentQuestionIndex].question}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      ..._questions![_currentQuestionIndex]
-                          .options
-                          .map((option) {
-                        return RadioListTile<String>(
-                          title: Text(option),
-                          value: option,
-                          groupValue: _selectedAnswer,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedAnswer = value;
-                            });
-                          },
-                        );
-                      }).toList(),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed:
-                            _selectedAnswer == null ? null : _nextQuestion,
-                        child: const Text('Next'),
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${_currentQuestionIndex + 1}. ${_questions![_currentQuestionIndex].question}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        ..._questions![_currentQuestionIndex]
+                            .options
+                            .map((option) {
+                          return RadioListTile<String>(
+                            title: Text(option),
+                            value: option,
+                            groupValue: _selectedAnswer,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedAnswer = value;
+                              });
+                            },
+                          );
+                        }).toList(),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(370, 50),
+                            backgroundColor: Colors.orange,
+                          ),
+                          onPressed:
+                              _selectedAnswer == null ? null : _nextQuestion,
+                          child: const Text(
+                            'Next',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               if (_questions == null)

@@ -47,21 +47,14 @@ class FeedbackScreen extends StatelessWidget {
                                       ? FontWeight.bold
                                       : FontWeight.normal,
                                   color: option == question.userAnswer
-                                      ? Colors.blue
+                                      ? (option == question.correctAnswer
+                                          ? Colors.green
+                                          : Colors.red)
                                       : Colors.black,
                                 )),
-                          if (question.userAnswer != question.correctAnswer)
-                            Text('Your answer: ${question.userAnswer}',
-                                style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
-                          if (question.userAnswer == question.correctAnswer)
-                            const Text('Correct!',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 10),
+                          Text('Your Answer: ${question.userAnswer ?? 'N/A'}'),
+                          Text('Correct Answer: ${question.correctAnswer}'),
                         ],
                       ),
                     ),

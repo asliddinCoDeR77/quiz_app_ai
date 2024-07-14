@@ -12,4 +12,6 @@ class QuizQuestion {
     required this.correctAnswer,
     this.userAnswer,
   });
+
+  static fromJson(json) {}
 }
