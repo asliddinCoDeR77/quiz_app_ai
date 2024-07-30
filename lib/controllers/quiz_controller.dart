@@ -30,21 +30,24 @@ class QuizController {
   }
 
   List<QuizQuestion> parseResponse(String text) {
-    final lines = text.split('\n');
     final List<QuizQuestion> questions = [];
+    final rawQuestions = text
+        .split('\n\n'); // Assuming questions are separated by double newlines
 
-    for (var i = 0; i < lines.length; i += 5) {
-      if (i + 4 < lines.length) {
+    for (var rawQuestion in rawQuestions) {
+      final lines = rawQuestion.split('\n');
+      if (lines.length >= 5) {
         questions.add(QuizQuestion(
           id: (questions.length + 1).toString(),
-          question: lines[i].trim(),
+          question: lines[0].trim(),
           options: [
-            lines[i + 1].trim(),
-            lines[i + 2].trim(),
-            lines[i + 3].trim(),
-            lines[i + 4].trim(),
+            lines[1].trim(),
+            lines[2].trim(),
+            lines[3].trim(),
+            lines[4].trim(),
           ],
-          correctAnswer: lines[i + 1].trim(),
+          correctAnswer: lines[1]
+              .trim(), // Adjust this if you have a way to determine the correct answer
         ));
       }
     }
@@ -79,14 +82,4 @@ extension QuizQuestionJson on QuizQuestion {
       'userAnswer': userAnswer,
     };
   }
-
-  // factory QuizQuestion.fromJson(Map<String, dynamic> json) {
-  //   return QuizQuestion(
-  //     id: json['id'],
-  //     question: json['question'],
-  //     options: List<String>.from(json['options']),
-  //     correctAnswer: json['correctAnswer'],
-  //     userAnswer: json['userAnswer'],
-  //   );
-  // }
 }

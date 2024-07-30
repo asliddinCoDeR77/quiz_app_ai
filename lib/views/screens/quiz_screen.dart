@@ -13,7 +13,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  final String apiKey = 'AIzaSyDzVQPzYcErrnubyy9UmPcDzfmC8hkeQZM';
+  final String apiKey = 'YOUR_API_KEY';
   String _selectedDifficulty = 'Easy';
   final TextEditingController _topicController = TextEditingController();
   late QuizController _quizController;

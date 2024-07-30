@@ -13,5 +13,23 @@ class QuizQuestion {
     this.userAnswer,
   });
 
-  static fromJson(json) {}
+  factory QuizQuestion.fromJson(Map<String, dynamic> json) {
+    return QuizQuestion(
+      id: json['id'],
+      question: json['question'],
+      options: List<String>.from(json['options']),
+      correctAnswer: json['correctAnswer'],
+      userAnswer: json['userAnswer'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'question': question,
+      'options': options,
+      'correctAnswer': correctAnswer,
+      'userAnswer': userAnswer,
+    };
+  }
 }
