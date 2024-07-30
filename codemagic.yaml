@@ -1,0 +1,13 @@
+
+workflows:
+  flutter-workflow:
+    name: Mening Quiz Dasturim 
+    environment:
+      flutter: stable
+    scripts:
+      - flutter pub get
+      - flutter analyze
+      - flutter test
+      - flutter build apk 
+    artifacts:
+      - build/**/outputs/**/*.apk
