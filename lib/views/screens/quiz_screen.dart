@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
@@ -61,7 +63,6 @@ class _QuizScreenState extends State<QuizScreen> {
         });
       } catch (e) {
         Navigator.of(context).pop();
-        print('Error: $e');
       }
     }
   }
@@ -175,7 +176,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               });
                             },
                           );
-                        }).toList(),
+                        }),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(

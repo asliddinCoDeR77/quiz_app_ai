@@ -4,7 +4,7 @@ import 'package:quiz_app/models/quiz_question.dart';
 class FeedbackScreen extends StatelessWidget {
   final List<QuizQuestion> questions;
 
-  const FeedbackScreen({Key? key, required this.questions}) : super(key: key);
+  const FeedbackScreen({super.key, required this.questions});
 
   @override
   Widget build(BuildContext context) {
